@@ -1,19 +1,17 @@
 # Esl
+## REST API ENDPOINT
+**/api/top_stories** 
+- return the latest 10 top stories, along with the version
 
-To start your Phoenix server:
+**/api/top_stories?version=xxx&page_number=1&page_size=10**
+- return the next 10 top stories, make sure the version is not older than 5 mins else it will throw error. if no version is passed it will use latest data.
 
-  * Install dependencies with `mix deps.get`
-  * Install Node.js dependencies with `cd assets && npm install`
-  * Start Phoenix endpoint with `mix phx.server`
+## WEBSOCKET ENDPOINT
+**/** 
+- we can inspect to see the websocket connection and values being updated
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+## TESTING
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
-
-## Learn more
-
-  * Official website: http://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+- test to see that the state of top_stories changes every 'x' interval of time.
+- test our system dnt throw error and don't update the old data when hacker news is down.
+- test top_stories server broadcast the data to channel for every update in its state.
