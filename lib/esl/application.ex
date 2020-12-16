@@ -4,18 +4,16 @@ defmodule Esl.Application do
   @moduledoc false
 
   use Application
-
+  alias Esl.{TopStories, HackerNews}
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
       # Start the endpoint when the application starts
-      EslWeb.Endpoint
-      # Starts a worker by calling: Esl.Worker.start_link(arg)
-      # {Esl.Worker, arg},
+      EslWeb.Endpoint,
+      HackerNews.Supervisor,
+      TopStories.Supervisor
     ]
 
-    # See https://hexdocs.pm/elixir/Supervisor.html
-    # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Esl.Supervisor]
     Supervisor.start_link(children, opts)
   end
