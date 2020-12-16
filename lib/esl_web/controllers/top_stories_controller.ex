@@ -2,6 +2,10 @@ defmodule EslWeb.TopStoriesController do
     alias Esl.TopStories.Worker
     use EslWeb, :controller
 
+    def index(conn, _params) do
+        render(conn, "index.html")
+    end
+
     @spec list(Plug.Conn.t(), any) :: Plug.Conn.t()
     def list(conn, %{"page_number" => page_number} = params) do
         with {:ok, version} <- get_version(Map.get(params, "version")),

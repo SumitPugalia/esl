@@ -55,9 +55,19 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 socket.connect()
 
 // Now that you are connected, you can join channels with a topic:
-let channel = socket.channel("topic:subtopic", {})
+let channel = socket.channel("feeds", {})
+
 channel.join()
   .receive("ok", resp => { console.log("Joined successfully", resp) })
   .receive("error", resp => { console.log("Unable to join", resp) })
+
+channel.on('new_feed', message => {
+  console.log(message)
+  renderMessage(JSON.stringify(message))
+})
+
+const renderMessage = function(message) {
+  document.querySelector("#feeds").innerHTML = message
+};
 
 export default socket

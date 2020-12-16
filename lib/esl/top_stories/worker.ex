@@ -101,6 +101,7 @@ defmodule Esl.TopStories.Worker do
         new_versions = [new, latest]
         news = news |> Map.delete(old) |> Map.put(new, data)
 
+        EslWeb.FeedsChannel.broadcast_feed(data)
         {:noreply, %{versions: new_versions, news: news}}
     end
 
